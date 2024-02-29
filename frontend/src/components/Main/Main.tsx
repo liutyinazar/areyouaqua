@@ -1,32 +1,74 @@
-import React, { useEffect } from "react";
+// Main.js
+import React, { useEffect, useState } from "react";
 import "./Main.scss";
-// @ts-ignore
-import soonVideo from "../../assets/mp4/soon.mp4";
+import moment from "moment";
 
 const Main = () => {
-  useEffect(() => {
-    const video = document.querySelector("video");
+  const [hours, setHours] = useState<number>(0);
+  const [minutes, setMinutes] = useState<number>(0);
+  const [seconds, setSeconds] = useState<number>(0);
+  const [timerVisible, setTimerVisible] = useState<boolean>(true);
 
-    if (video) {
-      video.controls = false; // вимкнути кнопки
-      video.play(); // автоматичне відтворення
-    }
+  useEffect(() => {
+    const targetDate = moment("2024-04-13T00:00:00");
+
+    const updateTimer = () => {
+      const now = moment();
+      const duration = moment.duration(targetDate.diff(now));
+
+      if (duration.asMilliseconds() > 0) {
+        const totalHours = duration.asHours();
+        setHours(Math.floor(totalHours));
+
+        const remainingMinutes = duration.minutes();
+        const remainingSeconds = duration.seconds();
+
+        setMinutes(remainingMinutes);
+        setSeconds(remainingSeconds);
+
+        setTimerVisible(false);
+        setTimeout(() => {
+          setTimerVisible(true);
+        }, 0);
+      } else {
+        setHours(0);
+        setMinutes(0);
+        setSeconds(0);
+      }
+    };
+
+    updateTimer();
+
+    const timerInterval = setInterval(() => {
+      updateTimer();
+    }, 100);
+
+    return () => {
+      clearInterval(timerInterval);
+    };
   }, []);
 
   return (
     <div className="main">
-      {/* <div className="container"> */}
-      {/* <iframe
-
-          src="https://www.youtube.com/embed/CHp9rL8Y6yQ?si=pk2kcZ2KatWqvLRO"
-          title="YouTube video player"
-          allow="autoplay"
-        ></iframe> */}
-      {/* </div> */}
-      <video controls autoPlay>
-        <source src={soonVideo} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <div className="text_appear">
+        <div className="text-overlay">
+          <div className="text">
+            <p>NOTHING IS</p>
+            <p>ETERNAL</p>
+          </div>
+          <div className="timer">
+            <p
+              className={`timer-animation ${
+                timerVisible ? "timer-visible" : ""
+              }`}
+            >
+              {`${hours}H:${String(minutes).padStart(2, "0")}M:${String(
+                seconds
+              ).padStart(2, "0")}S`}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
