@@ -1,0 +1,13 @@
+.main {
+    background-color: black;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    // padding: 20px;
+
+    iframe,
+    video {
+        height: 100vh;
+        width: 100%; /* Set the width to 100% for full-screen */
+    }
+}
