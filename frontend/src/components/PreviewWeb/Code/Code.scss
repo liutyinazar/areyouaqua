@@ -1,0 +1,26 @@
+.code {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+
+    .random-word {
+        position: absolute;
+        p {
+            font-size: 24px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        &.fade-in {
+            p {
+                opacity: 1;
+            }
+        }
+
+        &.fade-out {
+            p {
+                opacity: 0;
+            }
+        }
+    }
+}

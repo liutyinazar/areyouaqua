@@ -1,0 +1,15 @@
+.audio_player {
+    button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        // background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 22;
+    }
+
+    img {
+        width: 40px;
+    }
+}

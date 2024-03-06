@@ -1,5 +1,5 @@
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
+// import Header from "./components/Header/Header";
+import Main from "./components/PreviewWeb/Main/Main";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
